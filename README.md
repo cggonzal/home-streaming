@@ -6,7 +6,9 @@ ffmpeg -i input.avi -c:v libx264 -preset slow -crf 20 -c:a aac -b:a 160k -vf for
 Make sure to replace <input.avi> with the name of the input file and <output.mp4> with the name of the output file.
 
 
-## Create different bitrates of a single video file
+# The below instructions are for doing DASH. Browsers will automatically request files in chunks, so DASH is not needed unless you want to dynamically adapt streaming. Which is unecessary for any home project...
+
+### Create different bitrates of a single video file
 Input <in.video> below can be .mp4 or .webm. Change name of input and output files as needed.
 ```
 ffmpeg -i in.video -c:v libvpx-vp9 -keyint_min 150 \
@@ -20,7 +22,7 @@ ffmpeg -i in.video -c:v libvpx-vp9 -keyint_min 150 \
 from step 1 in: https://developer.mozilla.org/en-US/docs/Web/Media/DASH_Adaptive_Streaming_for_HTML_5_Video#using_dash_-_server_side
 
 
-## Create audio file
+### Create audio file
 Change name of input <in.video> output as needed.
 ```
 ffmpeg -i in.video -vn -acodec libvorbis -ab 128k -dash 1 my_audio.webm
@@ -28,7 +30,7 @@ ffmpeg -i in.video -vn -acodec libvorbis -ab 128k -dash 1 my_audio.webm
 ```
 from step 1 in: https://developer.mozilla.org/en-US/docs/Web/Media/DASH_Adaptive_Streaming_for_HTML_5_Video#using_dash_-_server_side
 
-## Create the manifest file
+### Create the manifest file
 Change name of video files and audio files to match the name of the ones that were created in steps above. Also change name of output .mpd manifest file.
 ```
 ffmpeg \
@@ -48,12 +50,9 @@ ffmpeg \
 from step 2 in: https://developer.mozilla.org/en-US/docs/Web/Media/DASH_Adaptive_Streaming_for_HTML_5_Video#using_dash_-_server_side
 
 
-## (Optional) Convert .mp4 to .webm
-This step is optional and is NOT needed for streaming to work correctly.
+### (Optional) Convert .mp4 to .webm
+This step is optional and is NOT needed for DASH or any form of streaming to work correctly. It is just here as a reference...
 ```
 ffmpeg -i input.mp4 -c:v libvpx-vp9 -crf 30 -b:v 0 -b:a 128k -c:a libopus output.webm
 ```
 found from: https://stackoverflow.com/questions/47510489/ffmpeg-convert-mp4-to-webm-poor-results
-
-## References
-[1]
