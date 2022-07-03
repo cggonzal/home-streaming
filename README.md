@@ -1,3 +1,11 @@
+## Note
+Make sure that the video file is a .mp4 and uses H.264 and AAC codecs for video and audio (respectively). If it is not, run the following command on the file:
+```
+ffmpeg -i input.avi -c:v libx264 -preset slow -crf 20 -c:a aac -b:a 160k -vf format=yuv420p -movflags +faststart output.mp4
+```
+Make sure to replace <input.avi> with the name of the input file and <output.mp4> with the name of the output file.
+
+
 ## Create different bitrates of a single video file
 Input <in.video> below can be .mp4 or .webm. Change name of input and output files as needed.
 ```
@@ -46,3 +54,6 @@ This step is optional and is NOT needed for streaming to work correctly.
 ffmpeg -i input.mp4 -c:v libvpx-vp9 -crf 30 -b:v 0 -b:a 128k -c:a libopus output.webm
 ```
 found from: https://stackoverflow.com/questions/47510489/ffmpeg-convert-mp4-to-webm-poor-results
+
+## References
+[1]
