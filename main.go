@@ -32,16 +32,6 @@ func upload(w http.ResponseWriter, r *http.Request) {
 	saveDir := "./static/"
 
 	if r.Method != http.MethodPost {
-		// if asking for file, serve file
-		if r.URL.Path != "/upload/" {
-			filename := r.URL.Path[len("/upload/"):]
-			w.Header().Set("Content-Disposition", "attachment; filename="+filename)
-			w.Header().Set("Content-Type", "application/octet-stream")
-			http.ServeFile(w, r, saveDir+filename)
-			return
-		}
-
-		// serve upload.html
 		http.ServeFile(w, r, "./static/upload.html")
 		return
 	}
