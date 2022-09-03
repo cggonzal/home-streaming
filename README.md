@@ -11,7 +11,7 @@ Make sure that the video file is a .mp4 and uses H.264 and AAC codecs for video 
 ```
 ffmpeg -i <input.avi> -c:v libx264 -preset slow -crf 20 -c:a aac -b:a 160k -vf format=yuv420p -movflags +faststart <output.mp4>
 ```
-Make sure to replace <input.avi> with the name of the input file and <output.mp4> with the name of the output file.
+Make sure to replace `<input.avi>` with the name of the input file and `<output.mp4>` with the name of the output file.
 
 
 # The below instructions are for doing DASH. Browsers will automatically request files in chunks, so DASH is not needed unless you want to dynamically adapt streaming. Which is unecessary for any home project...
