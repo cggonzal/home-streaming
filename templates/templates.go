@@ -29,7 +29,7 @@ type StreamData struct {
 }
 
 type DownloadData struct {
-	VideoName string
+	UploadedFileNames []string
 }
 
 // 3.

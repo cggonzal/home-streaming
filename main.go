@@ -73,7 +73,28 @@ func stream(w http.ResponseWriter, r *http.Request) {
 }
 
 func download(w http.ResponseWriter, r *http.Request) {
-	data := templates.DownloadData{VideoName: r.URL.Path[len("/download/"):]}
+	logger := customLogger.GetLogger()
+	saveDir := "./static/"
+
+	// if asking for file, serve file
+	if r.URL.Path != "/download/" {
+		filename := r.URL.Path[len("/download/"):]
+		w.Header().Set("Content-Disposition", "attachment; filename="+filename)
+		w.Header().Set("Content-Type", "application/octet-stream")
+		http.ServeFile(w, r, saveDir+filename)
+		return
+	}
+
+	// serve list of files
+	files, err := os.ReadDir(saveDir)
+	if err != nil {
+		logger.Fatal("error reading directory: ", err)
+	}
+	var fileNames []string
+	for _, file := range files {
+		fileNames = append(fileNames, file.Name())
+	}
+	data := templates.DownloadData{UploadedFileNames: fileNames}
 	templates.DownloadTemplate.Execute(w, data)
 }
 
