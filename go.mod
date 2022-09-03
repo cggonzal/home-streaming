@@ -1,3 +1,3 @@
-module home-streaming
+module homeStreaming
 
 go 1.17

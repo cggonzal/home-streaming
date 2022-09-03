@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<a style="text-align: left;" href="http://localhost:8000/">Table of Contents</a>
+<h2 style="text-align: center;">Download Files</h2>
+{{range .UploadedFileNames}}
+<a href="http://localhost:8000/download/{{.}}" style="text-align: center;" download>{{.}}</a>
+<br>
+{{end}}
+
+
+</body>
+</html>

@@ -1,7 +1,15 @@
+# Home Streaming Server
+The server will show all of the files that are uploaded when you go to the root endpoint `/`. 
+
+If you want to upload a file, go to `/upload/` or follow the link in the top right of the home page.
+
+Only mp4 files are supported.
+
+
 ## Note
 Make sure that the video file is a .mp4 and uses H.264 and AAC codecs for video and audio (respectively). If it is not, run the following command on the file:
 ```
-ffmpeg -i input.avi -c:v libx264 -preset slow -crf 20 -c:a aac -b:a 160k -vf format=yuv420p -movflags +faststart output.mp4
+ffmpeg -i <input.avi> -c:v libx264 -preset slow -crf 20 -c:a aac -b:a 160k -vf format=yuv420p -movflags +faststart <output.mp4>
 ```
 Make sure to replace <input.avi> with the name of the input file and <output.mp4> with the name of the output file.
 

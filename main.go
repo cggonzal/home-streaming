@@ -1,26 +1,112 @@
 package main
 
 import (
-	"log"
+	"fmt"
+	"homeStreaming/customLogger"
+	"homeStreaming/templates"
 	"net/http"
+	"os"
 )
 
-func serveContent(fs http.Handler) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+func index(w http.ResponseWriter, r *http.Request) {
+	logger := customLogger.GetLogger()
+	saveDir := "./static/"
 
-		log.Print("request path: ", r.URL.Path)
-		log.Print("request headers: ", r.Header)
-		// add mimetype="application/dash+xml" for .mpd files
-		if len(r.URL.Path) > 4 && r.URL.Path[len(r.URL.Path)-4:] == ".mpd" {
-			w.Header().Add("mimetype", "application/dash+xml")
+	// serve list of files
+	files, err := os.ReadDir(saveDir)
+	if err != nil {
+		logger.Fatal("error reading directory: ", err)
+	}
+	var fileNames []string
+	for _, file := range files {
+		fileNames = append(fileNames, file.Name())
+	}
+	data := templates.IndexData{UploadedFileNames: fileNames}
+	templates.IndexTemplate.Execute(w, data)
+}
+
+func upload(w http.ResponseWriter, r *http.Request) {
+	logger := customLogger.GetLogger()
+
+	// directory where uploaded files are saved to and read from
+	saveDir := "./static/"
+
+	if r.Method != http.MethodPost {
+		// if asking for file, serve file
+		if r.URL.Path != "/upload/" {
+			filename := r.URL.Path[len("/upload/"):]
+			w.Header().Set("Content-Disposition", "attachment; filename="+filename)
+			w.Header().Set("Content-Type", "application/octet-stream")
+			http.ServeFile(w, r, saveDir+filename)
+			return
 		}
 
-		fs.ServeHTTP(w, r)
+		// serve upload.html
+		http.ServeFile(w, r, "./static/upload.html")
+		return
 	}
+
+	// get uploaded file
+	file, header, err := r.FormFile("filename")
+	if err != nil {
+		logger.Fatal("error getting file...", err)
+	}
+
+	data := make([]byte, header.Size)
+	_, err = file.Read(data)
+	if err != nil {
+		logger.Fatal("error reading file: ", err)
+	}
+
+	err = os.WriteFile(saveDir+header.Filename, data, 0666)
+	if err != nil {
+		logger.Fatal("Error saving file:", err)
+	}
+
+	// redirect to landing page
+	http.Redirect(w, r, "/", http.StatusFound)
+}
+
+func stream(w http.ResponseWriter, r *http.Request) {
+	data := templates.StreamData{VideoName: r.URL.Path[len("/stream/"):]}
+	templates.StreamTemplate.Execute(w, data)
+}
+
+func download(w http.ResponseWriter, r *http.Request) {
+	data := templates.DownloadData{VideoName: r.URL.Path[len("/download/"):]}
+	templates.DownloadTemplate.Execute(w, data)
 }
 
 func main() {
-	fs := http.FileServer(http.Dir("./static"))
-	http.Handle("/", serveContent(fs))
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	// serve landing page
+	http.HandleFunc("/", index)
+
+	// serve static files
+	http.Handle("/static/", http.FileServer(http.Dir(".")))
+
+	// upload file
+	http.HandleFunc("/upload/", upload)
+
+	// stream video
+	http.HandleFunc("/stream/", stream)
+
+	// download video
+	http.HandleFunc("/download/", download)
+
+	// initialize Logger, this has to come before all other initializations since they use the logger
+	customLogger.InitLogger()
+
+	// initialize templates
+	templates.InitTemplates()
+
+	// check if $PORT environment variable is set
+	logger := customLogger.GetLogger()
+	if os.Getenv("PORT") == "" {
+		logger.Fatal("ERROR... No $PORT environment variable set... Exiting...")
+	}
+
+	// start the server on given $PORT
+	PORT := fmt.Sprintf(":%s", os.Getenv("PORT"))
+	logger.Print("starting app on port ", PORT)
+	logger.Fatal(http.ListenAndServe(PORT, nil))
 }

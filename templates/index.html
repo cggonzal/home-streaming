@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<a style="text-align: right;" href="http://localhost:8000/upload/">Upload a file</a>
+<h2 style="text-align: center;">Table of Contents</h2>
+{{range .UploadedFileNames}}
+<a href="http://localhost:8000/stream/{{.}}" style="text-align: center;">{{.}}</a>
+<br>
+{{end}}
+
+
+</body>
+</html>
