@@ -5,6 +5,16 @@ If you want to upload a file, go to `/upload/` or follow the link in the top rig
 
 Only mp4 files are supported.
 
+## How to run
+Set the $PORT environment variable:
+```
+export PORT=8000
+```
+
+Then go to the root endpoint:
+```
+http://localhost:8000/
+```
 
 ## Note
 Make sure that the video file is a .mp4 and uses H.264 and AAC codecs for video and audio (respectively). If it is not, run the following command on the file:
