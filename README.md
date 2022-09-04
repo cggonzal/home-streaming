@@ -3,7 +3,7 @@ The server will show all of the files that are uploaded when you go to the root 
 
 If you want to upload a file, go to `/upload/` or follow the link in the top right of the home page.
 
-Only mp4 files are supported.
+Only mp4 files are supported for streaming.
 
 ## How to run
 Set the $PORT environment variable:
