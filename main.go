@@ -10,7 +10,7 @@ import (
 
 func index(w http.ResponseWriter, r *http.Request) {
 	logger := customLogger.GetLogger()
-	saveDir := "./static/"
+	saveDir := "./media/"
 
 	// serve list of files
 	files, err := os.ReadDir(saveDir)
@@ -29,7 +29,7 @@ func upload(w http.ResponseWriter, r *http.Request) {
 	logger := customLogger.GetLogger()
 
 	// directory where uploaded files are saved to and read from
-	saveDir := "./static/"
+	saveDir := "./media/"
 
 	if r.Method != http.MethodPost {
 		http.ServeFile(w, r, "./static/upload.html")
@@ -64,7 +64,7 @@ func stream(w http.ResponseWriter, r *http.Request) {
 
 func download(w http.ResponseWriter, r *http.Request) {
 	logger := customLogger.GetLogger()
-	saveDir := "./static/"
+	saveDir := "./media/"
 
 	// if asking for file, serve file
 	if r.URL.Path != "/download/" {
@@ -92,8 +92,8 @@ func main() {
 	// serve landing page
 	http.HandleFunc("/", index)
 
-	// serve static files
-	http.Handle("/static/", http.FileServer(http.Dir(".")))
+	// serve media files
+	http.Handle("/media/", http.FileServer(http.Dir(".")))
 
 	// upload file
 	http.HandleFunc("/upload/", upload)
