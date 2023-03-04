@@ -11,10 +11,10 @@ Set the $PORT environment variable:
 export PORT=8000
 ```
 
-Set the $MEDIA_DIR environment variable that defines where media files up be stored & read from. Create this directory if it doesn't exist yet.
+Set the $MEDIA_DIR environment variable that defines where media files up be stored & read from. Create this directory if it doesn't exist yet. **MAKE SURE THIS IS AN ABSOLUTE PATH**.
 ```
 mkdir media
-export MEDIA_DIR="./media/"
+export MEDIA_DIR="$PWD/media/"
 ```
 
 Then go to the root endpoint:

@@ -21,7 +21,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			logger.Fatal(err)
 		}
-		fmt.Printf("dir: %v: name: %s\n", info.IsDir(), path)
+
 		if !info.IsDir() { // append only if we are a file since we only want to keep track of files
 			fileNames = append(fileNames, strings.TrimPrefix(path, MEDIA_DIR))
 		}
@@ -30,7 +30,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		logger.Fatal(err)
 	}
-	logger.Println("filenames:", fileNames)
+
 	// execute template
 	data := templates.IndexData{UploadedFileNames: fileNames}
 	templates.IndexTemplate.Execute(w, data)
