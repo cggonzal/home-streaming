@@ -82,15 +82,23 @@ func download(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// serve list of files
-	files, err := os.ReadDir(MEDIA_DIR)
-	if err != nil {
-		logger.Fatal("error reading directory: ", err)
-	}
+	// walk through media directory and find path to all files
 	var fileNames []string
-	for _, file := range files {
-		fileNames = append(fileNames, file.Name())
+	err := filepath.Walk(MEDIA_DIR, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			logger.Fatal(err)
+		}
+
+		if !info.IsDir() { // append only if we are a file since we only want to keep track of files
+			fileNames = append(fileNames, strings.TrimPrefix(path, MEDIA_DIR))
+		}
+		return nil
+	})
+	if err != nil {
+		logger.Fatal(err)
 	}
+
+	// serve list of files
 	data := templates.DownloadData{UploadedFileNames: fileNames}
 	templates.DownloadTemplate.Execute(w, data)
 }
