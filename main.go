@@ -107,8 +107,9 @@ func main() {
 	// serve landing page
 	http.HandleFunc("/", index)
 
-	// serve media files, handles byte range requests automatically :)
-	http.Handle("/media/", http.FileServer(http.Dir(".")))
+	// serve media files. Translate path so that /media/ requests are routed to serve files from $MEDIA_DIR
+	// Note: http.FileServer handles byte range requests automatically :)
+	http.Handle("/media/", http.StripPrefix("/media/", http.FileServer(http.Dir(MEDIA_DIR))))
 
 	// upload file
 	http.HandleFunc("/upload/", upload)
