@@ -22,9 +22,12 @@ func index(w http.ResponseWriter, r *http.Request) {
 			logger.Fatal(err)
 		}
 
-		if !info.IsDir() { // append only if we are a file since we only want to keep track of files
+		// only allow selection to stream mp4 files that do not start with a "."
+		_, fileName := filepath.Split(path)
+		if !info.IsDir() && !strings.HasPrefix(fileName, ".") && strings.HasSuffix(fileName, ".mp4") {
 			fileNames = append(fileNames, strings.TrimPrefix(path, MEDIA_DIR))
 		}
+
 		return nil
 	})
 	if err != nil {
@@ -89,7 +92,9 @@ func download(w http.ResponseWriter, r *http.Request) {
 			logger.Fatal(err)
 		}
 
-		if !info.IsDir() { // append only if we are a file since we only want to keep track of files
+		// don't append directories or files that start with a "." since those are hidden files with useless meta data
+		_, fileName := filepath.Split(path)
+		if !info.IsDir() && !strings.HasPrefix(fileName, ".") {
 			fileNames = append(fileNames, strings.TrimPrefix(path, MEDIA_DIR))
 		}
 		return nil
