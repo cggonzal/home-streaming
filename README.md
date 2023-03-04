@@ -29,6 +29,37 @@ Then go to the root endpoint:
 http://localhost:8000/
 ```
 
+## Raspberry Pi Home Server Configuration
+The name of the unit is "home-streaming-server". The password is "password" (no quotes). 
+
+The systemd unit file is set to download the latest commit from main, re-compile the binary, then run. Thus to deploy the latest commit do:
+```
+systemctl restart home-streaming-server.service
+```
+
+To edit the systemd unit file:
+```
+sudo systemctl edit --full home-streaming-server.service
+```
+After a unit file is edited you will have to restart the daemon:
+```
+systemctl daemon-reload
+```
+
+To check the status of the service:
+```
+systemctl status home-streaming-server.service
+```
+
+To look at logs for the service:
+```
+journalctl -u home-streaming-server.service
+```
+
+For more info on systemd unit files: https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units#editing-unit-files
+
+For more info on journalctl: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
+
 ## Note
 Make sure that the video file is a .mp4 and uses H.264 and AAC codecs for video and audio (respectively). If it is not, run the following command on the file:
 ```
