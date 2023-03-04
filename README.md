@@ -12,9 +12,16 @@ export PORT=8000
 ```
 
 Set the $MEDIA_DIR environment variable that defines where media files up be stored & read from. Create this directory if it doesn't exist yet. **MAKE SURE THIS IS AN ABSOLUTE PATH**.
+
+For local:
 ```
 mkdir media
 export MEDIA_DIR="$PWD/media/"
+```
+
+For Raspberry PI with Hard drive plugged in:
+```
+export MEDIA_DIR="/media/ubuntu/cgg/HARDDRIVE/"
 ```
 
 Then go to the root endpoint:
