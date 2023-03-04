@@ -11,6 +11,12 @@ Set the $PORT environment variable:
 export PORT=8000
 ```
 
+Set the $MEDIA_DIR environment variable that defines where media files up be stored & read from. Create this directory if it doesn't exist yet.
+```
+mkdir media
+export MEDIA_DIR="./media/"
+```
+
 Then go to the root endpoint:
 ```
 http://localhost:8000/

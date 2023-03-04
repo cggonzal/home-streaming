@@ -8,12 +8,13 @@ import (
 	"os"
 )
 
+var MEDIA_DIR string = os.Getenv("MEDIA_DIR")
+
 func index(w http.ResponseWriter, r *http.Request) {
 	logger := customLogger.GetLogger()
-	saveDir := "./media/"
 
 	// serve list of files
-	files, err := os.ReadDir(saveDir)
+	files, err := os.ReadDir(MEDIA_DIR)
 	if err != nil {
 		logger.Fatal("error reading directory: ", err)
 	}
@@ -27,9 +28,6 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 func upload(w http.ResponseWriter, r *http.Request) {
 	logger := customLogger.GetLogger()
-
-	// directory where uploaded files are saved to and read from
-	saveDir := "./media/"
 
 	if r.Method != http.MethodPost {
 		http.ServeFile(w, r, "./static/upload.html")
@@ -48,7 +46,7 @@ func upload(w http.ResponseWriter, r *http.Request) {
 		logger.Fatal("error reading file: ", err)
 	}
 
-	err = os.WriteFile(saveDir+header.Filename, data, 0666)
+	err = os.WriteFile(MEDIA_DIR+header.Filename, data, 0666)
 	if err != nil {
 		logger.Fatal("Error saving file:", err)
 	}
@@ -64,19 +62,18 @@ func stream(w http.ResponseWriter, r *http.Request) {
 
 func download(w http.ResponseWriter, r *http.Request) {
 	logger := customLogger.GetLogger()
-	saveDir := "./media/"
 
 	// if asking for file, serve file
 	if r.URL.Path != "/download/" {
 		filename := r.URL.Path[len("/download/"):]
 		w.Header().Set("Content-Disposition", "attachment; filename="+filename)
 		w.Header().Set("Content-Type", "application/octet-stream")
-		http.ServeFile(w, r, saveDir+filename)
+		http.ServeFile(w, r, MEDIA_DIR+filename)
 		return
 	}
 
 	// serve list of files
-	files, err := os.ReadDir(saveDir)
+	files, err := os.ReadDir(MEDIA_DIR)
 	if err != nil {
 		logger.Fatal("error reading directory: ", err)
 	}
