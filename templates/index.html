@@ -2,11 +2,11 @@
 <html>
 <body>
 
-<a style="text-align: right;" href="http://localhost:8000/upload/">Upload a file</a>
-<a style="text-align: right;" href="http://localhost:8000/download/">Download a file</a>
+<a style="text-align: right;" href="/upload/">Upload a file</a>
+<a style="text-align: right;" href="/download/">Download a file</a>
 <h2 style="text-align: center;">Table of Contents</h2>
 {{range .UploadedFileNames}}
-<a href="http://localhost:8000/stream/{{.}}" style="text-align: center;">{{.}}</a>
+<a href="/stream/{{.}}" style="text-align: center;">{{.}}</a>
 <br>
 {{end}}
 
