@@ -60,6 +60,8 @@ For more info on systemd unit files: https://www.digitalocean.com/community/tuto
 
 For more info on journalctl: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
 
+See the file named "home-streaming-server.service" for the systemd unit file running on the raspberry pi
+
 ## Note
 Make sure that the video file is a .mp4 and uses H.264 and AAC codecs for video and audio (respectively). If it is not, run the following command on the file:
 ```
