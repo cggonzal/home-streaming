@@ -6,6 +6,8 @@ import (
 	"homeStreaming/templates"
 	"net/http"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 var MEDIA_DIR string = os.Getenv("MEDIA_DIR")
@@ -13,15 +15,23 @@ var MEDIA_DIR string = os.Getenv("MEDIA_DIR")
 func index(w http.ResponseWriter, r *http.Request) {
 	logger := customLogger.GetLogger()
 
-	// serve list of files
-	files, err := os.ReadDir(MEDIA_DIR)
-	if err != nil {
-		logger.Fatal("error reading directory: ", err)
-	}
+	// walk through media directory and find path to all files
 	var fileNames []string
-	for _, file := range files {
-		fileNames = append(fileNames, file.Name())
+	err := filepath.Walk(MEDIA_DIR, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			logger.Fatal(err)
+		}
+		fmt.Printf("dir: %v: name: %s\n", info.IsDir(), path)
+		if !info.IsDir() { // append only if we are a file since we only want to keep track of files
+			fileNames = append(fileNames, strings.TrimPrefix(path, MEDIA_DIR))
+		}
+		return nil
+	})
+	if err != nil {
+		logger.Fatal(err)
 	}
+	logger.Println("filenames:", fileNames)
+	// execute template
 	data := templates.IndexData{UploadedFileNames: fileNames}
 	templates.IndexTemplate.Execute(w, data)
 }
@@ -89,7 +99,7 @@ func main() {
 	// serve landing page
 	http.HandleFunc("/", index)
 
-	// serve media files
+	// serve media files, handles byte range requests automatically :)
 	http.Handle("/media/", http.FileServer(http.Dir(".")))
 
 	// upload file
@@ -111,6 +121,16 @@ func main() {
 	logger := customLogger.GetLogger()
 	if os.Getenv("PORT") == "" {
 		logger.Fatal("ERROR... No $PORT environment variable set... Exiting...")
+	}
+
+	// check if $MEDIA_DIR environment variable is set
+	if os.Getenv("MEDIA_DIR") == "" {
+		logger.Fatal("ERROR... No $MEDIA_DIR environment variable set... Exiting...")
+	}
+
+	// append a "/" to the $MEDIA_DIR environment variable if it is not set
+	if !strings.HasSuffix(MEDIA_DIR, "/") {
+		MEDIA_DIR += "/"
 	}
 
 	// start the server on given $PORT
