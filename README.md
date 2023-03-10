@@ -19,9 +19,9 @@ mkdir media
 export MEDIA_DIR="$PWD/media/"
 ```
 
-For Raspberry PI with Hard drive plugged in:
+For Nuc with Hard drive plugged in:
 ```
-export MEDIA_DIR="/media/ubuntu/cgg/HARDDRIVE/"
+export MEDIA_DIR="/media/HARDDRIVE/"
 ```
 
 Then go to the root endpoint:
@@ -29,7 +29,7 @@ Then go to the root endpoint:
 http://localhost:8000/
 ```
 
-## Raspberry Pi Home Server Configuration
+## Nuc Home Server Configuration
 The name of the unit is "home-streaming-server". The password is "password" (no quotes). 
 
 The systemd unit file is set to download the latest commit from main, re-compile the binary, then run. Thus to deploy the latest commit do:
@@ -37,7 +37,7 @@ The systemd unit file is set to download the latest commit from main, re-compile
 systemctl restart home-streaming-server.service
 ```
 
-To edit the systemd unit file:
+The systemd unit file is symlinked to the home-streaming-server.service file in the repo. If you need to make updates to the unit file you can change the home-streaming-server.service file in the repo then run:
 ```
 sudo systemctl edit --full home-streaming-server.service
 ```
@@ -60,7 +60,7 @@ For more info on systemd unit files: https://www.digitalocean.com/community/tuto
 
 For more info on journalctl: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
 
-See the file named "home-streaming-server.service" for the systemd unit file running on the raspberry pi
+See the file named "home-streaming-server.service" for the systemd unit file running on the nuc
 
 ## Note
 Make sure that the video file is a .mp4 and uses H.264 and AAC codecs for video and audio (respectively). If it is not, run the following command on the file:
