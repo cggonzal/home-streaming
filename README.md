@@ -38,6 +38,7 @@ The systemd unit file is symlinked to the home-streaming-server.service file in 
 ssh into the nuc, go to the home-streaming directory, then run deploy.sh:
 ```
 cd /home/cgg/home-streaming
+sudo chmod +x deploy.sh
 ./deploy.sh
 ```
 
