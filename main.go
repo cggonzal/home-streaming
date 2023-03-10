@@ -151,5 +151,6 @@ func main() {
 	// start the server on given $PORT
 	PORT := fmt.Sprintf(":%s", os.Getenv("PORT"))
 	logger.Print("starting app on port ", PORT)
+    logger.Print("TEST")
 	logger.Fatal(http.ListenAndServe(PORT, nil))
 }
