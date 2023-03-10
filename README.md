@@ -1,4 +1,4 @@
-# Home Streaming Server TEST
+# Home Streaming Server
 The server will show all of the files that are uploaded when you go to the root endpoint `/`. 
 
 If you want to upload a file, go to `/upload/` or follow the link in the top right of the home page.
