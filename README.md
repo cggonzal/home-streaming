@@ -29,27 +29,19 @@ Then go to the root endpoint:
 http://localhost:8000/
 ```
 
-## Nuc Home Server Configuration / Deployment
+## Nuc Home Server Configuration
 The name of the systemd unit is "home-streaming-server". The password is "password" (no quotes). 
 
-The systemd unit file is symlinked to the home-streaming-server.service file in the repo and is set to download the latest commit from main, re-compile the binary, then run the server. Thus if you need to make updates to the unit file you can change the home-streaming-server.service file in the repo. If no changes were made to the unit file, you can just restart the service.
+The systemd unit file is symlinked to the home-streaming-server.service file in the repo and is set to download the latest commit from main, re-compile the binary, then run the server. Thus if you need to make updates to the unit file you can change the home-streaming-server.service file in the repo. 
 
-### Deployment
-If changes were made to the systemd unit file home-streaming-server.service:
+## Deploying to nuc
+ssh into the nuc, go to the home-streaming directory, then run deploy.sh:
 ```
-git fetch origin main
-git reset --hard origin/main
-systemctl daemon-reload
-systemctl restart home-streaming-server.service
+cd /home/cgg/home-streaming
+./deploy.sh
 ```
 
-If no changes were made to the unit file: 
-```
-systemctl restart home-streaming-server.service
-```
-
-
-
+## Diagnosing issues 
 To check the status of the service:
 ```
 systemctl status home-streaming-server.service
@@ -63,8 +55,6 @@ journalctl -u home-streaming-server.service
 For more info on systemd unit files: https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units#editing-unit-files
 
 For more info on journalctl: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
-
-See the file named "home-streaming-server.service" for the systemd unit file running on the nuc
 
 ## Note
 Make sure that the video file is a .mp4 and uses H.264 and AAC codecs for video and audio (respectively). If it is not, run the following command on the file:
