@@ -1,5 +1,5 @@
 [Unit]
-Description=nuc-home-streaming-server-test
+Description=nuc-home-streaming-server
 
 [Service]
 Type=simple
@@ -12,7 +12,7 @@ Environment="HOME=/home/cgg"
 ExecStartPre=/usr/bin/git config --global --add safe.directory /home/cgg/home-streaming
 ExecStartPre=/usr/bin/git fetch origin main
 ExecStartPre=/usr/bin/git reset --hard origin/main
-ExecStartPre=/usr/bin/systemctl daemon-reload
+#ExecStartPre=/usr/bin/systemctl daemon-reload
 ExecStartPre=/usr/local/go/bin/go build /home/cgg/home-streaming/main.go
 ExecStart=/home/cgg/home-streaming/main
 
