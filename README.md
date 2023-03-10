@@ -32,19 +32,12 @@ http://localhost:8000/
 ## Nuc Home Server Configuration
 The name of the unit is "home-streaming-server". The password is "password" (no quotes). 
 
-The systemd unit file is set to download the latest commit from main, re-compile the binary, then run. Thus to deploy the latest commit do:
+The systemd unit file is set to download the latest commit from main, re-compile the binary, then run. Thus to deploy the latest commit run the following command on the nuc:
 ```
 systemctl restart home-streaming-server.service
 ```
 
-The systemd unit file is symlinked to the home-streaming-server.service file in the repo. If you need to make updates to the unit file you can change the home-streaming-server.service file in the repo then run:
-```
-sudo systemctl edit --full home-streaming-server.service
-```
-After a unit file is edited you will have to restart the daemon:
-```
-systemctl daemon-reload
-```
+The systemd unit file is symlinked to the home-streaming-server.service file in the repo. If you need to make updates to the unit file you can change the home-streaming-server.service file in the repo then restart the service as shown in the line above.:
 
 To check the status of the service:
 ```
