@@ -1,5 +1,5 @@
 [Unit]
-Description=nuc-home-streaming-server-test
+Description=nuc-home-streaming-server
 
 [Service]
 Type=simple
