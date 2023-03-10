@@ -9,9 +9,6 @@ WorkingDirectory=/home/cgg/home-streaming
 Environment="PORT=8000"
 Environment="MEDIA_DIR=/media/HARDDRIVE/"
 Environment="HOME=/home/cgg"
-ExecStartPre=/usr/bin/git config --global --add safe.directory /home/cgg/home-streaming
-ExecStartPre=/usr/bin/git fetch origin main
-ExecStartPre=/usr/bin/git reset --hard origin/main
 ExecStartPre=/usr/local/go/bin/go build /home/cgg/home-streaming/main.go
 ExecStart=/home/cgg/home-streaming/main
 
