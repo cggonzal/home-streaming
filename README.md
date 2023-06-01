@@ -65,7 +65,9 @@ ffmpeg -i <input.avi> -c:v libx264 -preset slow -crf 20 -c:a aac -b:a 160k -vf f
 Make sure to replace `<input.avi>` with the name of the input file and `<output.mp4>` with the name of the output file.
 
 
-# The below instructions are for doing DASH. Browsers will automatically request files in chunks, so DASH is not needed unless you want to dynamically adapt streaming. Which is unecessary for any home project...
+## DASH
+
+The below instructions are for doing DASH. Browsers will automatically request files in chunks, so DASH is not needed unless you want to dynamically adapt streaming.
 
 ### Create different bitrates of a single video file
 Input <in.video> below can be .mp4 or .webm. Change name of input and output files as needed.
