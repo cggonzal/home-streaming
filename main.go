@@ -112,6 +112,9 @@ func main() {
 	// serve landing page
 	http.HandleFunc("/", index)
 
+	// serve static files
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+
 	// serve media files. Translate path so that /media/ requests are routed to serve files from $MEDIA_DIR.
 	// See here for godoc example: https://pkg.go.dev/net/http#example-FileServer-StripPrefix
 	// Note: http.FileServer handles byte range requests automatically :)
