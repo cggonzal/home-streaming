@@ -112,7 +112,7 @@ func main() {
 	// serve landing page
 	http.HandleFunc("/", index)
 
-	// serve static files
+	// serve all files in static/ directory at /static/ url
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
 	// serve media files. Translate path so that /media/ requests are routed to serve files from $MEDIA_DIR.
