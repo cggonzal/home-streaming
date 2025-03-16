@@ -4,14 +4,14 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
-<a style="text-align: left;" href="/">Table of Contents</a>
-
-<h2 style="text-align: center;">Upload a new file</h2>
-    <form action="/upload/" method="post" enctype="multipart/form-data">
-        <input type="file" id="myFile" name="filename">
-        <input type="submit">
-    </form>
-
+    <a href="/" class="nav-link">Table of Contents</a>
+    <h2 class="page-title">Upload a new file</h2>
+    
+    <div class="upload-container">
+        <form action="/upload/" method="post" enctype="multipart/form-data" class="upload-form">
+            <input type="file" id="myFile" name="filename" class="file-input">
+            <input type="submit" value="Upload" class="submit-button">
+        </form>
+    </div>
 </body>
 </html>

@@ -1,0 +1,123 @@
+body {
+    background-color: #141414;
+    color: #ffffff;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+h2 {
+    color: #ffffff;
+    font-size: 2em;
+    margin-bottom: 30px;
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #e50914;
+}
+
+/* File list styling */
+.file-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.file-item {
+    background-color: #2f2f2f;
+    border-radius: 4px;
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.file-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(229, 9, 20, 0.3);
+}
+
+/* Navigation link */
+.nav-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* Navigation container */
+.nav-container {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+}
+
+/* Upload form styling */
+.upload-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #2f2f2f;
+    border-radius: 4px;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.file-input {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+}
+
+.submit-button {
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #f40612;
+}
+
+/* Video player container */
+.video-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #000000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+video {
+    width: 100%;
+    height: auto;
+}
+
+/* Page title */
+.page-title {
+    text-align: center;
+    color: #e50914;
+    margin: 20px 0 40px 0;
+}
+
+.page-subtitle {
+    text-align: center;
+    color: #999;
+    margin-bottom: 30px;
+}

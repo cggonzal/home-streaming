@@ -4,16 +4,20 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
-<a style="text-align: right;" href="/upload/">Upload a file</a>
-<a style="text-align: right;" href="/download/">Download a file</a>
-<h2 style="text-align: center;">Content Available to Stream</h2>
-<h4 style="text-align: center;">(see <a href="/download/">downloads<a> for all available files besides just .mp4)</h4>
-{{range .UploadedFileNames}}
-<a href="/stream/{{.}}" style="text-align: center;">{{.}}</a>
-<br>
-{{end}}
-
-
+    <div class="nav-container">
+        <a href="/upload/" class="nav-link">Upload a file</a>
+        <a href="/download/" class="nav-link">Download a file</a>
+    </div>
+    
+    <h2 class="page-title">Content Available to Stream</h2>
+    <h4 class="page-subtitle">(see <a href="/download/">downloads</a> for all available files besides just .mp4)</h4>
+    
+    <div class="file-list">
+        {{range .UploadedFileNames}}
+        <div class="file-item">
+            <a href="/stream/{{.}}">{{.}}</a>
+        </div>
+        {{end}}
+    </div>
 </body>
 </html>

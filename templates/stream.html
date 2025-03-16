@@ -4,10 +4,12 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
-<a style="text-align: left;" href="/">Table of Contents</a>
-
-<h2 style="text-align: center;">{{.VideoName}}</h2>
-<video src="/media/{{.VideoName}}" type="video/mp4" controls autoplay></video>
+    <a href="/" class="nav-link">Table of Contents</a>
+    
+    <h2 class="page-title">{{.VideoName}}</h2>
+    
+    <div class="video-container">
+        <video src="/media/{{.VideoName}}" type="video/mp4" controls autoplay></video>
+    </div>
 </body>
 </html>
