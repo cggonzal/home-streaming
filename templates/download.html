@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
 <body>
-
-<a style="text-align: left;" href="/">Table of Contents</a>
-<h2 style="text-align: center;">Select A File To Download</h2>
-{{range .UploadedFileNames}}
-<a href="/download/{{.}}" style="text-align: center;" download>{{.}}</a>
-<br>
-{{end}}
-
-
+    <a href="/" class="nav-link">Table of Contents</a>
+    <h2 class="page-title">Select A File To Download</h2>
+    
+    <div class="file-list">
+        {{range .UploadedFileNames}}
+        <div class="file-item">
+            <a href="/download/{{.}}" download>{{.}}</a>
+        </div>
+        {{end}}
+    </div>
 </body>
 </html>
